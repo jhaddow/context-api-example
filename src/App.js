@@ -13,13 +13,19 @@ const Green = () => (
 
 const Blue = () => (
   <div className="blue">
+    <NumberContext.Consumer>
+      {context => <button onClick={context.increment}> increment </button>}
+    </NumberContext.Consumer>
     <Green />
   </div>
 );
 
 class NumberProvider extends Component {
   state = {
-    number: 10
+    number: 10,
+    increment: () => {
+      this.setState({number: this.state.number + 1})
+    }
   }
 
   render() {
