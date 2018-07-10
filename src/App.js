@@ -1,28 +1,50 @@
 import React, { Component } from 'react';
 import './App.css';
 
-const Green = props => <div className="green">{props.number}</div>;
+const NumberContext = React.createContext();
 
-const Blue = props => (
+const Green = () => (
+    <div className="green">
+        <NumberContext.Consumer>
+          {context => context.number}
+        </NumberContext.Consumer>
+    </div>
+);
+
+const Blue = () => (
   <div className="blue">
-    <Green number={props.number} />
+    <Green />
   </div>
 );
 
-class Red extends Component {
+class NumberProvider extends Component {
   state = {
     number: 10
-  };
+  }
 
   render() {
     return (
-      <div className="red">
-        {this.state.number}
-        <Blue number={this.state.number} />
-      </div>
-    );
+      <NumberContext.Provider value={this.state}>
+        {this.props.children}
+      </NumberContext.Provider>
+    )
   }
 }
 
+class Red extends Component {
+
+  render() {
+    return (
+      <NumberProvider>
+        <div className="red">
+          <NumberContext.Consumer>
+            { context => context.number}
+          </NumberContext.Consumer>
+          <Blue />
+        </div>
+      </NumberProvider>
+    );
+  }
+}
 
 export default Red;
