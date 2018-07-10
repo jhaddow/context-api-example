@@ -1,0 +1,19 @@
+ div {
+    margin: 1rem;
+    padding: 1rem;
+    color: #FDFFFC;
+    font-weight: bold;
+}
+ 
+.red {
+    background-color: #E71D36;
+}
+ 
+.blue {
+    background-color: #011699;
+}
+ 
+.green {
+    background-color: #2EC4B6;
+}
+
