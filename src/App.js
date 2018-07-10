@@ -3,20 +3,28 @@ import './App.css';
 
 const NumberContext = React.createContext();
 
-const Green = () => (
+const withNumber = (Component) => {
+  return function(props) {
+   return <NumberContext.Consumer>
+      {context => <Component {...props} number={context.number} />}
+    </NumberContext.Consumer>
+  }
+}
+
+const Green = (props) => (
     <div className="green">
-        <NumberContext.Consumer>
-          {context => context.number}
-        </NumberContext.Consumer>
+        {props.number}
     </div>
 );
+
+const GreenWithNumber = withNumber(Green)
 
 const Blue = () => (
   <div className="blue">
     <NumberContext.Consumer>
       {context => <button onClick={context.increment}> increment </button>}
     </NumberContext.Consumer>
-    <Green />
+    <GreenWithNumber />
   </div>
 );
 
